@@ -29,3 +29,10 @@ which is what makes them safe for array indexing.
 Any date before 1970-01-01 raises `ValueError`. Booleans are rejected for
 ordinal input even though `bool` is a subclass of `int`, to prevent
 silent bugs.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
